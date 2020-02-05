@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.lang.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -26,6 +28,7 @@ public class Semestre implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NonNull
 	private String periodo;
 	
 	@JsonIgnore
@@ -50,7 +53,12 @@ public class Semestre implements Serializable{
 		this.cadeiras = cadeiras;
 	}
 
-
+	
+	public Semestre(String periodo, Curso curso) {
+		super();
+		this.periodo = periodo;
+		this.curso = curso;
+	}
 
 	public int getId() {
 		return id;

@@ -73,4 +73,8 @@ public class Curso implements Serializable{
 		this.semestres = semestres;
 	}
 	
+	public void addSemestre(Semestre semestre) {
+		this.semestres.add(semestre);
+	}
+	
 }

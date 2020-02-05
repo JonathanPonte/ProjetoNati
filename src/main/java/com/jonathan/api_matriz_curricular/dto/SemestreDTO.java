@@ -1,6 +1,10 @@
 package com.jonathan.api_matriz_curricular.dto;
 
-public class SemestreDTO {
+import java.io.Serializable;
+
+public class SemestreDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private String periodo;
@@ -13,17 +17,8 @@ public class SemestreDTO {
 	
 	public SemestreDTO(int id, String periodo, int cursoId) {
 		super();
-		this.id = id;
 		this.periodo = periodo;
 		this.cursoId = cursoId;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getPeriodo() {
@@ -40,6 +35,14 @@ public class SemestreDTO {
 
 	public void setCursoId(int cursoId) {
 		this.cursoId = cursoId;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

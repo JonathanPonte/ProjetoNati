@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonathan.api_matriz_curricular.dto.LoginDTO;
 import com.jonathan.api_matriz_curricular.models.Usuario;
 import com.jonathan.api_matriz_curricular.repository.UsuarioRepository;
+
+import javassist.NotFoundException;
 
 
 @RestController
@@ -51,17 +54,17 @@ public class UsuarioResource {
 	}
 		
 	
-//	@PostMapping("/login")
-//	public Usuario login(@RequestBody LoginUsuario loginUsuario) throws NotFoundException{
-//		
-//		Usuario usuario = usuarioRepository.findByMatricula(loginUsuario.getMatricula());
-//		
-//		if(usuario == null) {
-//			throw new NotFoundException("Usuario não existe.");
-//		}
-//		
-//		return usuario;
-//	}
+	@PostMapping("/login")
+	public Usuario login(@RequestBody LoginDTO loginUsuario) throws NotFoundException{
+		
+		Usuario usuario = usuarioRepository.findByEmailAndSenha(loginUsuario.getEmail(), loginUsuario.getSenha());
+		
+		if(usuario == null) {
+			throw new NotFoundException("Usuario não existe.");
+		}
+		
+		return usuario;
+	}
 	
 	
 }

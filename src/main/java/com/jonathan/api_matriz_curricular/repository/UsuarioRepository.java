@@ -6,7 +6,7 @@ import com.jonathan.api_matriz_curricular.models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
-//	Usuario findByLogin(Long login);
+	Usuario findByEmailAndSenha(String login, String senha);
 	
 	
 }

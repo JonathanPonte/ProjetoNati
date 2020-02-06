@@ -3,10 +3,14 @@ package com.jonathan.api_matriz_curricular.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="TB_CADEIRA")
@@ -15,36 +19,40 @@ public class Cadeira implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private String nome;
-	private String codigo;
+	private int qtdCredito;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "semestre_id")
 	private Semestre semestre;
+	
 	@ManyToOne
 	@JoinColumn(name = "disciplina_id")
 	private Disciplina disciplina; 
 
 	
-
 	public Cadeira() {
 		
 	}
 	
-	
 
-
-	public Cadeira(int id, String nome, String codigo, Semestre semestre, Disciplina disciplina) {
+	public Cadeira(int id, int qtdCredito, Semestre semestre, Disciplina disciplina) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.codigo = codigo;
+		this.qtdCredito = qtdCredito;
 		this.semestre = semestre;
 		this.disciplina = disciplina;
 	}
 
+	public Cadeira(int qtdCredito, Semestre semestre, Disciplina disciplina) {
+		super();
+		this.qtdCredito = qtdCredito;
+		this.semestre = semestre;
+		this.disciplina = disciplina;
+	}
 
 
 
@@ -57,6 +65,7 @@ public class Cadeira implements Serializable{
 	public void setSemestre(Semestre semestre) {
 		this.semestre = semestre;
 	}
+
 
 	public Disciplina getDisciplina() {
 		return disciplina;
@@ -76,23 +85,17 @@ public class Cadeira implements Serializable{
 	}
 
 
-	public String getNome() {
-		return nome;
+
+
+	public int getQtdCredito() {
+		return qtdCredito;
 	}
 
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 
-	public String getCodigo() {
-		return codigo;
-	}
-
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setQtdCredito(int qtdCredito) {
+		this.qtdCredito = qtdCredito;
 	}
 
 

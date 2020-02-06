@@ -42,17 +42,9 @@ public class SemestreResource {
 	public Semestre novoSemestre(@RequestBody SemestreDTO semestreDto) throws NotFoundException {
 		Semestre semestre = null;
 		Curso curso = cursoRepository.findById(semestreDto.getCursoId()).orElse(null);
-			
-		if (curso != null) {
-			semestre = new Semestre(semestreDto.getPeriodo(), curso);
-			curso.addSemestre(semestre);
-			cursoRepository.save(curso);
-			semestreRepository.save(semestre);
-		}else {
-			throw new NotFoundException("Id de curso invalido");
-		}
+		semestre = new Semestre(semestreDto.getPeriodo(), curso);
 
-		return semestre;
+		return semestreRepository.save(semestre);
 	}
 
 	@DeleteMapping("/semestre/{id}")
@@ -60,10 +52,25 @@ public class SemestreResource {
 		semestreRepository.deleteById(id);
 	}
 
-	@PutMapping("/semestre/{id}")
-	public Semestre atualizarDisciplina(@RequestBody Semestre semestre, @PathVariable int id) {
-		semestre.setId(id);
-		return semestreRepository.save(semestre);
+	@PutMapping("/semestre")
+	public Semestre atualizarDisciplina(@RequestBody SemestreDTO semestreDto) {
+		Curso cursoU = cursoRepository.findById(semestreDto.getCursoId()).orElse(null);
+		
+		Semestre semestre = new Semestre(semestreDto.getId(), semestreDto.getPeriodo(), cursoU);
+		semestreRepository.save(semestre);
+		
+		
+		List<Curso> cursos = cursoRepository.findAll();
+		
+		for(Curso curso : cursos) {
+			if(curso.getId() == semestreDto.getId()) {
+				System.out.println(curso.getId() + " " + semestreDto.getId());
+				curso.addSemestre(semestre);
+				cursoRepository.save(curso);
+			}
+		}
+		
+		return semestre;
 	}
 
 }

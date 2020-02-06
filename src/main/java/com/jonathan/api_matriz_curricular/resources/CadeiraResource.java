@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonathan.api_matriz_curricular.dto.CadeiraDTO;
 import com.jonathan.api_matriz_curricular.models.Cadeira;
+import com.jonathan.api_matriz_curricular.models.Disciplina;
+import com.jonathan.api_matriz_curricular.models.Semestre;
 import com.jonathan.api_matriz_curricular.repository.CadeiraRepository;
+import com.jonathan.api_matriz_curricular.repository.DisciplinaRepository;
+import com.jonathan.api_matriz_curricular.repository.SemestreRepository;
 
 @RestController
 @RequestMapping(value="/api")
@@ -22,16 +27,31 @@ public class CadeiraResource {
 	@Autowired
 	CadeiraRepository cadeiraRepository;
 	
-
+	@Autowired
+	SemestreRepository semestreRepositoy;
 	
-	@GetMapping("/cadeira")
+	@Autowired
+	DisciplinaRepository disciplinaRepositoy;
+	
+	@GetMapping("/cadeiras")
 	public List<Cadeira> listarCadeiras(){
 		return cadeiraRepository.findAll();
 	}
 	
 	
 	@PostMapping("/cadeira")
-	public Cadeira novacadeira(@RequestBody Cadeira cadeira) {
+	public Cadeira novacadeira(@RequestBody CadeiraDTO cadeiraDto) {
+		
+		Semestre semestre = semestreRepositoy.findById(cadeiraDto.getSemestreId()).orElse(null);
+		Disciplina disciplina = disciplinaRepositoy.findById(cadeiraDto.getDisciplinaId()).orElse(null);
+		
+		Cadeira cadeira = new Cadeira(cadeiraDto.getQtdCreditos(), semestre, disciplina);
+		
+		
+//		semestre.addCadeira(cadeira);
+//		semestreRepositoy.save(semestre);
+		
+		
 		return cadeiraRepository.save(cadeira);
 	}
 		

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.jonathan.api_matriz_curricular.dto.SemestreDTO;
 import com.jonathan.api_matriz_curricular.models.Curso;
-import com.jonathan.api_matriz_curricular.models.Semestre;
 import com.jonathan.api_matriz_curricular.repository.CadeiraRepository;
 import com.jonathan.api_matriz_curricular.repository.CursoRepository;
 

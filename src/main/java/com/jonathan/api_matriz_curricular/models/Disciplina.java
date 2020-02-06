@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="TB_DISCIPLINA")
 public class Disciplina implements Serializable{
@@ -24,6 +26,7 @@ public class Disciplina implements Serializable{
 	private String nome;
 	private String codigo;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL)
 	private List<Cadeira> cadeiras = new ArrayList<Cadeira>();
 

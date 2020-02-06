@@ -36,6 +36,7 @@ public class Semestre implements Serializable{
 	@JoinColumn(name="curso_id")
 	private Curso curso;
 	
+	
 	@OneToMany(mappedBy = "semestre", cascade = CascadeType.ALL)
 	private List<Cadeira> cadeiras = new ArrayList<Cadeira>();
 	
@@ -54,12 +55,19 @@ public class Semestre implements Serializable{
 	}
 
 	
-	public Semestre(String periodo, Curso curso) {
+	public Semestre(int id, String periodo, Curso curso) {
 		super();
+		this.id = id;
 		this.periodo = periodo;
 		this.curso = curso;
 	}
 
+	public Semestre( String periodo, Curso curso) {
+		super();
+		this.periodo = periodo;
+		this.curso = curso;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -87,6 +95,8 @@ public class Semestre implements Serializable{
 		this.curso = curso;
 	}
 	
-	
+	public void addCadeira(Cadeira c) {
+		this.cadeiras.add(c);
+	}
 	
 }

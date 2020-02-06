@@ -13,26 +13,25 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TB_CURSO")
-public class Curso implements Serializable{
-	
+@Table(name = "TB_CURSO")
+public class Curso implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String nome;
 	private int totalCredito;
-	
 
-	@OneToMany(mappedBy="curso", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
 	private List<Semestre> semestres = new ArrayList<Semestre>();
 
 	public Curso() {
-		
+
 	}
-	
+
 	public Curso(Integer id, String nome, int totalCredito, List<Semestre> semestres) {
 		super();
 		this.id = id;
@@ -72,9 +71,15 @@ public class Curso implements Serializable{
 	public void setSemestres(List<Semestre> semestres) {
 		this.semestres = semestres;
 	}
-	
+
 	public void addSemestre(Semestre semestre) {
 		this.semestres.add(semestre);
 	}
-	
+
+	public void removerSemestre(int id) {
+
+		this.semestres.remove(id);
+
+	}
+
 }
